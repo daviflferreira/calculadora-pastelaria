@@ -113,6 +113,6 @@ class CalculadoraTest {
             ArithmeticException.class,
             () -> calculadora.dividir(10.0, 0.0)
         );
-        assertEquals("Divisão por zero não é permitida.", excecao.getMessage());
+        assertEquals("Divisão por zero não é permitido.", excecao.getMessage());
     }
 }
