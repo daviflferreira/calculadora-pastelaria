@@ -19,7 +19,7 @@ public class SistemaCaixa {
 
     public void iniciar() {
         System.out.println("╔══════════════════════════════════════════╗");
-        System.out.println("║        CAIXA — CANTINHO DO PASTEL        ║");
+        System.out.println("║        CAIXA - CANTINHO DO PASTEL        ║");
         System.out.println("╚══════════════════════════════════════════╝");
 
         boolean rodando = true;
@@ -81,7 +81,7 @@ public class SistemaCaixa {
 
             String[] partes = linha.split("\\s+");
             if (partes.length != 2) {
-                System.out.println("  ⚠  Formato inválido. Ex: 2 3");
+                System.out.println("! Formato inválido. Ex: 2 3");
                 continue;
             }
 
@@ -90,21 +90,21 @@ public class SistemaCaixa {
                 int qtd = Integer.parseInt(partes[1]);
 
                 if (qtd <= 0) {
-                    System.out.println("  ⚠  Quantidade deve ser maior que zero.");
+                    System.out.println("! Quantidade deve ser maior que zero.");
                     continue;
                 }
 
                 Optional<Produto> produto = gerenciador.buscarPorId(id);
                 if (produto.isEmpty()) {
-                    System.out.println("  ⚠  Produto " + id + " não encontrado no cardápio.");
+                    System.out.println("! Produto " + id + " não encontrado no cardápio.");
                     continue;
                 }
 
                 itensPedido.merge(id, qtd, Integer::sum);
-                System.out.printf("  ✓  %s × %d adicionado.%n", produto.get().getNome(), qtd);
+                System.out.printf("%s × %d adicionado.%n", produto.get().getNome(), qtd);
 
             } catch (NumberFormatException e) {
-                System.out.println("  ⚠  Digite apenas números. Ex: 2 3");
+                System.out.println("Digite apenas números. Ex: 2 3");
             }
         }
 
@@ -138,7 +138,7 @@ public class SistemaCaixa {
                 System.out.printf("  TOTAL COM %.0f%% DE DESCONTO: R$ %.2f%n", desconto, total);
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("  ⚠  Desconto ignorado: " + e.getMessage());
+            System.out.println("Desconto ignorado: " + e.getMessage());
         }
 
         System.out.print("\nValor pago pelo cliente: R$ ");
@@ -147,9 +147,9 @@ public class SistemaCaixa {
             double troco     = calculadoraPedido.calcularTroco(total, valorPago);
             System.out.printf("  TROCO: R$ %.2f%n", troco);
         } catch (NumberFormatException e) {
-            System.out.println("  ⚠  Valor inválido.");
+            System.out.println("Valor inválido.");
         } catch (IllegalArgumentException e) {
-            System.out.println("  ⚠  " + e.getMessage());
+            System.out.println(" ! " + e.getMessage());
         }
 
         System.out.println("──────────────────────────────────");
@@ -159,7 +159,7 @@ public class SistemaCaixa {
         System.out.print("\nNome do produto: ");
         String nome = scanner.nextLine().trim();
         if (nome.isBlank()) {
-            System.out.println("  ⚠  Nome não pode ser vazio.");
+            System.out.println("Nome não pode ser vazio.");
             return;
         }
 
@@ -167,11 +167,11 @@ public class SistemaCaixa {
         try {
             double preco = Double.parseDouble(scanner.nextLine().trim().replace(",", "."));
             Produto novo = gerenciador.adicionarProduto(nome, preco);
-            System.out.println("  ✓  Produto adicionado: " + novo);
+            System.out.println("Produto adicionado: " + novo);
         } catch (NumberFormatException e) {
-            System.out.println("  ⚠  Preço inválido.");
+            System.out.println("Preço inválido.");
         } catch (IllegalArgumentException e) {
-            System.out.println("  ⚠  " + e.getMessage());
+            System.out.println("  !  " + e.getMessage());
         }
     }
 
@@ -184,10 +184,10 @@ public class SistemaCaixa {
             int id     = Integer.parseInt(scanner.nextLine().trim());
             boolean ok = gerenciador.removerProduto(id);
             System.out.println(ok
-                ? "  ✓  Produto removido com sucesso."
-                : "  ⚠  Produto não encontrado.");
+                ? "Produto removido com sucesso."
+                : "Produto não encontrado.");
         } catch (NumberFormatException e) {
-            System.out.println("  ⚠  ID inválido.");
+            System.out.println("ID inválido.");
         }
     }
 }
